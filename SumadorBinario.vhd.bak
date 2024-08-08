@@ -1,0 +1,44 @@
+library IEEE;
+use IEEE.std_logic_1164.all;
+
+entity SumadorBinario is
+	port (A, B : in STD_logic_vector (3 downto 0);
+			S : in STD_logic_vector (4 downto 0);
+			e : in STD_logic;
+			ledsAB : out STD_logic_vector (1 downto 0, 3 downto 0);
+			ledS : out STD_logic_vector (4 downto 0);
+			seg : out STD_logic_vector (5 downto 0, 6 downto 0));
+
+end entity SumadorBinario;
+architecture codigo of SumadorBinario is
+	begin 
+	
+	suma: process(A, B, S)
+	variable carry : STD_logic_vector (2 downto 0)
+		begin
+	
+			S(0) <= A XOR B;
+			carry(0) <= x AND y;
+			S(1) <= A XOR B XOR carry(0);
+			carry(1) <= (A AND B) OR (carry(0) AND A) OR (carry(0) AND B);
+			S(2) <= A XOR B XOR carry(1);
+			carry(2) <= (A AND B) OR (carry(1) AND A) OR (carry(1) AND B);
+			S(3) <= A XOR B XOR carry(2);
+			S(4) <= (A AND B) OR (carry(2) AND A) OR (carry(2) AND B);
+	
+	end process suma;
+	
+	mostrar: process(A, B, S, e, ledsAB, ledS, seg)
+		begin
+			
+			case A is
+					when "0000" =>
+								seg(0)(0) <= "1111110";
+								seg(1)(0) <= "1111111";
+					when "0001" =>
+								seg(0)(0) <= "1111110";
+								seg(1)(0) <= "1111111";
+								
+			end case;
+	end process mostrar;
+end codigo;
